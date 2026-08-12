@@ -15,8 +15,8 @@ jobs:
         image: postgres:15
         env:
           POSTGRES_DB: lsa_booking
-          POSTGRES_USER: lsa_user
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
         options: >-
@@ -27,8 +27,8 @@ jobs:
           
     env:
       POSTGRES_DB: lsa_booking
-      POSTGRES_USER: lsa_user
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       SECRET_KEY: test-secret-key-for-ci-only
