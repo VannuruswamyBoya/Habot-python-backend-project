@@ -18,7 +18,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
-          - 5432:5432
+          - 5433:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -29,8 +29,8 @@ jobs:
       POSTGRES_DB: lsa_booking
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
+      POSTGRES_HOST: '127.0.0.1'
+      POSTGRES_PORT: '5433'
       SECRET_KEY: test-secret-key-for-ci-only
       RAZORPAY_KEY_ID: rzp_test_12345
       RAZORPAY_KEY_SECRET: secret_12345

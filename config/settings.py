@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env file
-load_dotenv(BASE_DIR / '.env')
+# Load environment variables from .env file only if not in CI
+if not os.environ.get('GITHUB_ACTIONS'):
+    load_dotenv(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-default-key')
