@@ -1,0 +1,57 @@
+name: Django Tests CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: lsa_booking
+          POSTGRES_USER: lsa_user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          
+    env:
+      DB_NAME: lsa_booking
+      DB_USER: lsa_user
+      DB_PASSWORD: password
+      DB_HOST: localhost
+      DB_PORT: 5432
+      SECRET_KEY: test-secret-key-for-ci-only
+      RAZORPAY_KEY_ID: rzp_test_12345
+      RAZORPAY_KEY_SECRET: secret_12345
+      RAZORPAY_WEBHOOK_SECRET: webhook_secret_12345
+      DEBUG: True
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install setuptools==69.5.1
+        pip install -r requirements.txt
+        pip install pytest pytest-django
+        
+    - name: Run Tests
+      run: |
+        pytest
